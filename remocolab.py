@@ -181,6 +181,8 @@ def _setupSSHDImpl(public_key, tunnel, ngrok_token, ngrok_region, is_VNC):
     ssh_common_options += f" -p {port}"
   elif tunnel == "argotunnel":
     _download("https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.deb", "cloudflared.deb")
+    my_apt.installDebPackage("cloudflared.deb")
+    print('DEB LINUX')
     shutil.unpack_archive("cloudflared.deb")
     cfd_proc = subprocess.Popen(
         ["./cloudflared", "tunnel", "--url", "ssh://localhost:22", "--logfile", "cloudflared.log", "--metrics", "localhost:49589"],
